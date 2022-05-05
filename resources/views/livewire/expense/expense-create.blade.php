@@ -6,7 +6,7 @@
 
     @include('includes.message')
 
-    <form action="" wire:submit.prevent="createExpense" class="w-full max-w-7xl mx-auto">
+    <form action="" wire:submit.prevent="createExpense" class="w-full max-w-7xl mx-auto mt-10">
         <div class="flex flex-wrap -mx-3 mb-6">
 
             <p class="w-full px-3 mb-6 md:mb-0">

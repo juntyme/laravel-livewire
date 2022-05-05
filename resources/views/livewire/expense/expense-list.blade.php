@@ -4,7 +4,7 @@
         Meus Registros
     </x-slot>
 
-    <div class="w-full mx-auto text-right mb-4">
+    <div class="w-full mx-auto text-right mb-4 mt-5">
         <a href="{{route('expenses.create')}}"
             class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Criar
             Registro</a>
@@ -28,7 +28,9 @@
             <tr>
                 <td class="px-4 py-2 border">{{$exp->id}}</td>
                 <td class="px-4 py-2 border">{{$exp->description}}</td>
-                <td class="px-4 py-2 border">{{$exp->amount}}</td>
+                <td class="px-4 py-2 border"><span class="{{ ($exp->type == 1) ? 'text-green-600' : 'text-red-600' }}">
+                    R$ {{number_format($exp->amount, 2 , ',', '.')}}
+                    </span> </td>
                 <td class="px-4 py-2 border">{{$exp->created_at->format('d/m/Y H:i:s')}}</td>
                 <td class="px-4 py-4 border">
                     <a href="{{route('expenses.edit', $exp->id)}}"
@@ -41,6 +43,9 @@
         </tbody>
     </table>
     <div class="w-full mx-auto mt-10">
+        @if (count($expenses))
         {{$expenses->links()}}
+
+        @endif
     </div>
 </div>

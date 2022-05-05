@@ -1,11 +1,11 @@
 <div class="max-w-7xl mx-auto py-15 px-4">
     <x-slot name="header">
-        Criar Registro
+       Editar Registro
     </x-slot>
 
     @include('includes.message')
 
-    <form action="" wire:submit.prevent="updateExpense" class="w-full max-w-7xl mx-auto">
+    <form action="" wire:submit.prevent="updateExpense" class="w-full max-w-7xl mx-auto mt-10">
 
         <div class="flex flex-wrap -mx-3 mb-6">
 
@@ -53,7 +53,7 @@
         <div class="w-full py-4 px-3 mb-6 md:mb-0">
 
             <button type="submit"
-                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Criar
+                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">Editar
                 Registro</button>
         </div>
     </form>
