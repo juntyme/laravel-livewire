@@ -3,22 +3,28 @@
 namespace App\Http\Livewire\Expense;
 
 use App\Models\Expense;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ExpenseEdit extends Component
 {
+    use WithFileUploads;
+
     // Carregar o Objeto
     public Expense $expense;
 
     public $description;
     public $amount;
     public $type;
+    public $photo;
 
     // Validações
     protected $rules = [
         'amount' => 'required',
         'type' => 'required',
-        'description' => 'required'
+        'description' => 'required',
+        'photo' => 'image|nullable'
     ];
 
     // Monta o Componente parecido com construct
@@ -33,10 +39,18 @@ class ExpenseEdit extends Component
     {
         $this->validate();
 
+        if ($this->photo) {
+            if (Storage::disk('public')->exists($this->expense->photo))
+                Storage::disk('public')->delete($this->expense->photo);
+
+            $this->photo = $this->photo->store('expenses-photos', 'public');
+        }
+
         $this->expense->update([
             'amount' => $this->amount,
             'type' => $this->type,
-            'description' => $this->description
+            'description' => $this->description,
+            'photo' => $this->photo ?? $this->expense->photo
         ]);
 
         session()->flash('message', 'Registro Atualizado com Sucesso!');

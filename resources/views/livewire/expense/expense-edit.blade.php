@@ -9,6 +9,7 @@
 
         <div class="flex flex-wrap -mx-3 mb-6">
 
+            {{-- Descrição --}}
             <p class="w-full px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Descrição
                     Registro</label>
@@ -20,7 +21,7 @@
             @enderror
             </p>
 
-
+            {{-- Valor do Registro --}}
             <p class="w-full px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Valor do
                     Registro</label>
@@ -33,7 +34,7 @@
 
             </p>
 
-
+            {{-- Tipo de Registro  --}}
             <p class="w-full px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Tipo do
                     Registro</label>
@@ -48,6 +49,21 @@
             <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
             @enderror
             </p>
+
+            {{-- upload de fotos --}}
+            <p class="w-full px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Foto Comprovante</label>
+            </p>
+            <input type="file" name="photo" wire:model="photo"
+                class="block appearance-none w-full bg-gray-200 border @error('photo') border-red-500 @else border-gray-200 @enderror  text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+
+            {{-- Carregar Foto  --}}
+           <img src="{{ route('expenses.photo', $expense->id) }}" alt="" width="150px" class="my-3">
+
+            @error('photo')
+            <h5 class="text-red-500 text-xs italic">{{$message}}</h5>
+            @enderror
+
 
         </div>
         <div class="w-full py-4 px-3 mb-6 md:mb-0">

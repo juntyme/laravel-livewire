@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use \App\Http\Livewire\Expense\{ExpenseCreate, ExpenseEdit, ExpenseList};
+use Illuminate\Support\Facades\{File, Storage};
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,5 +32,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/', ExpenseList::class)->name('index');
         Route::get('/create', ExpenseCreate::class)->name('create');
         Route::get('/edite/{expense}', ExpenseEdit::class)->name('edit');
+
+        Route::get('/{expense}/photo', function ($expense) {
+            $expense = auth()->user()->expenses()->findOrFail($expense);
+
+            if (!Storage::disk('public')->exists($expense->photo))
+                return abort(404, 'Image not found');
+
+            //Pegar a imagem
+            $image = Storage::disk('public')->get($expense->photo);
+            $mimeType = File::mimeType(storage_path('app/public/' . $expense->photo));
+
+            // Retorna a Imagem
+            return response($image)->header('Content-Type', $mimeType);
+        })->name('photo');
     });
 });
