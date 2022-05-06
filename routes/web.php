@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use \App\Http\Livewire\Expense\{ExpenseCreate, ExpenseEdit, ExpenseList};
+use App\Http\Livewire\Plan\{PlanCreate, PlanList };
 use Illuminate\Support\Facades\{File, Storage};
 
 Route::get('/', function () {
@@ -46,5 +47,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             // Retorna a Imagem
             return response($image)->header('Content-Type', $mimeType);
         })->name('photo');
+    });
+
+    Route::prefix('plans')->name('plans.')->group(function () {
+
+        Route::get('/', PlanList::class)->name('index');
+        Route::get('/create', PlanCreate::class)->name('create');
     });
 });

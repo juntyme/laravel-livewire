@@ -11,6 +11,16 @@ class Plan extends Model
 
     protected $fillable = ['name', 'description', 'slug', 'reference', 'price'];
 
+    public function getPriceAttribute()
+    {
+        return $this->attributes['price'] / 100;
+    }
+
+    public function setPriceAttribute($prop)
+    {
+        return $this->attributes['price'] = $prop * 100;
+    }
+
     public function features()
     {
         return $this->hasMany(Feature::class);
